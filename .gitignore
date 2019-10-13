@@ -1,0 +1,14 @@
+.DS_Store
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Python
+*.py[cod]
+*$py.class

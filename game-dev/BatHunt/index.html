@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bat Hunt</title>
+        <!-- Adjusts CSS settings to a 0 point across different browsers.
+              Gives you a predictable starting point for CSS. -->
+        <link href="styles/normalize.css" type="text/css" rel="stylesheet" />
+        <!-- import create.js library. this does most of the heavy lifting.
+              It's actually four JavaScript libraries packed in one.
+              EaselJS - working with Canvas
+              TweenJS - working with animations (we don't use this here)
+              SoundJS - working with sounds
+              PreloadJS - preloading assets
+        -->
+        <script language="javascript" type="text/javascript"
+            src="http://code.createjs.com/createjs-2013.12.12.min.js" ></script>
+        <script language="javascript" type="text/javascript"
+            src="scripts/fastclick.js"></script>
+
+        <!-- this is a JS file we will write our code in -->
+        <script language="javascript" type="text/javascript"
+            src="scripts/bat.js" ></script>
+    </head>
+    <body>
+        <canvas id="myCanvas"></canvas>
+    </body>
+</html>

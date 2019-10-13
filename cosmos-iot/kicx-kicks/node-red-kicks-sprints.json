@@ -1,0 +1,440 @@
+[
+  {
+    "id": "90a04a4c.380468",
+    "type": "tab",
+    "label": "Flow 1",
+    "disabled": false,
+    "info": "Kicx Kicks"
+  },
+  {
+    "id": "bdc4ddbc.b0bec",
+    "type": "ui_tab",
+    "z": "",
+    "name": "Statistics",
+    "icon": "Stats",
+    "disabled": false,
+    "hidden": false
+  },
+  {
+    "id": "6b196ee1.b84d5",
+    "type": "ui_group",
+    "z": "",
+    "name": "Battery",
+    "tab": "24a48d64.abf1e2",
+    "disp": true,
+    "width": "6",
+    "collapse": false
+  },
+  {
+    "id": "cdddfd4b.a29b7",
+    "type": "ui_base",
+    "theme": {
+      "name": "theme-light",
+      "lightTheme": {
+        "default": "#0094CE",
+        "baseColor": "#0094CE",
+        "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+        "edited": true,
+        "reset": false
+      },
+      "darkTheme": {
+        "default": "#097479",
+        "baseColor": "#097479",
+        "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+        "edited": false
+      },
+      "customTheme": {
+        "name": "Untitled Theme 1",
+        "default": "#4B7930",
+        "baseColor": "#4B7930",
+        "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+      },
+      "themeState": {
+        "base-color": {
+          "default": "#0094CE",
+          "value": "#0094CE",
+          "edited": false
+        },
+        "page-titlebar-backgroundColor": {
+          "value": "#0094CE",
+          "edited": false
+        },
+        "page-backgroundColor": {
+          "value": "#fafafa",
+          "edited": false
+        },
+        "page-sidebar-backgroundColor": {
+          "value": "#ffffff",
+          "edited": false
+        },
+        "group-textColor": {
+          "value": "#1bbfff",
+          "edited": false
+        },
+        "group-borderColor": {
+          "value": "#ffffff",
+          "edited": false
+        },
+        "group-backgroundColor": {
+          "value": "#ffffff",
+          "edited": false
+        },
+        "widget-textColor": {
+          "value": "#111111",
+          "edited": false
+        },
+        "widget-backgroundColor": {
+          "value": "#0094ce",
+          "edited": false
+        },
+        "widget-borderColor": {
+          "value": "#ffffff",
+          "edited": false
+        },
+        "base-font": {
+          "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+        }
+      },
+      "angularTheme": {
+        "primary": "indigo",
+        "accents": "blue",
+        "warn": "red",
+        "background": "grey"
+      }
+    },
+    "site": {
+      "name": "Node-RED Dashboard",
+      "hideToolbar": "false",
+      "allowSwipe": "false",
+      "lockMenu": "false",
+      "allowTempTheme": "true",
+      "dateFormat": "DD/MM/YYYY",
+      "sizes": {
+        "sx": 48,
+        "sy": 48,
+        "gx": 6,
+        "gy": 6,
+        "cx": 6,
+        "cy": 6,
+        "px": 0,
+        "py": 0
+      }
+    }
+  },
+  {
+    "id": "4739bcf0.f94c54",
+    "type": "ui_group",
+    "z": "",
+    "name": "Statistics ",
+    "tab": "e16322d1.6156e",
+    "disp": true,
+    "width": "6",
+    "collapse": true
+  },
+  {
+    "id": "e63e47c3.b11d78",
+    "type": "ui_tab",
+    "z": "",
+    "name": "Sprints",
+    "icon": "Sprints",
+    "disabled": false,
+    "hidden": false
+  },
+  {
+    "id": "a1fe5c77.86477",
+    "type": "ui_tab",
+    "z": "",
+    "name": "Alert",
+    "icon": "Emergency",
+    "disabled": false,
+    "hidden": false
+  },
+  {
+    "id": "e16322d1.6156e",
+    "type": "ui_tab",
+    "z": "",
+    "name": "Kicks",
+    "icon": "Kicks ",
+    "disabled": false,
+    "hidden": false
+  },
+  {
+    "id": "24a48d64.abf1e2",
+    "type": "ui_tab",
+    "z": "",
+    "name": "Battery",
+    "icon": "Battery",
+    "disabled": false,
+    "hidden": false
+  },
+  {
+    "id": "7fb381eb.1de83",
+    "type": "comment",
+    "z": "90a04a4c.380468",
+    "name": "Device Simulator",
+    "info": "Sends simulated device sensor data to IBM Watson IoT Plaform.\n\nCan be configured to send on click or on an automatic interval.\n\n\n#Prerequisite\nOutput node device type and device ID need to match a device that it registered in a running IBM Watson IoT Platform service.\n\n# Watson IoT Platform docs\n[Connecting devices](https://www.bluemix.net/docs/services/IoT/iotplatform_task.html)",
+    "x": 100,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "493f6adc.94def4",
+    "type": "debug",
+    "z": "90a04a4c.380468",
+    "name": "Kicks",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload.kick",
+    "targetType": "msg",
+    "x": 618.0000457763672,
+    "y": 700.0000343322754,
+    "wires": []
+  },
+  {
+    "id": "b914d8fd.fe78d8",
+    "type": "comment",
+    "z": "90a04a4c.380468",
+    "name": "Gyro Y Axis",
+    "info": "",
+    "x": 94.00004577636719,
+    "y": 622.0000324249268,
+    "wires": []
+  },
+  {
+    "id": "9024cd4f.f00dd",
+    "type": "function",
+    "z": "90a04a4c.380468",
+    "name": "Analyze",
+    "func": "var state = global.get( \"statecount\")||0;\n// sprint++;\nglobal.set('statecount', state);\n\n\nvar battery = msg.payload.d.Level\nvar gyro = msg.payload.d.Y ////get the accel value sent by the node BEFORE 'Def sprint'\nvar kick = msg.payload.kick;//get the sprint value you added to payload in 'Def sprint'\nvar sprint = msg.payload.sprint;//get the sprint value you added to payload in 'Def sprint'\nif (gyro < -1000) {\n   kick++;\n   global.set('kcount', kick);\n}\nelse if (gyro > 350) {\n   sprint++;\n   global.set('scount', sprint);\n}\n\nif ((kick >= 15) || (sprint>= 250)) {\n    state = 1;\n}\nelse {\n    state = 0;\n}\n    \n\nsprintmi = sprint/1000;\n//update payload.sprint for the next node!\nmsg.payload.battery = battery\nmsg.payload.state = state; \nmsg.payload.sprint = sprintmi;\nmsg.payload.kick = kick;//update payload.sprint for the next node!\nreturn msg;//return msg with all the original stuff + the updated sprint value",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 392.00002670288086,
+    "y": 767.0000343322754,
+    "wires": [
+      [
+        "ef149dc2.b2fdb",
+        "493f6adc.94def4",
+        "c7aaf186.c7682",
+        "2d5c4ad9.9d3236",
+        "95f209f5.30e8a8",
+        "f00aff1a.0af91",
+        "37048ce1.82a004"
+      ]
+    ]
+  },
+  {
+    "id": "7b3744a4.93540c",
+    "type": "function",
+    "z": "90a04a4c.380468",
+    "name": "Def Sprint",
+    "func": "var sprint = global.get( \"scount\")||0;\n// sprint++;\nglobal.set('scount', sprint);\nmsg.payload.sprint = sprint; //<<just add a property to msg instead of returning a new one!\nreturn msg;//return the original msg that was passed in - it will still have stuff from previous node!",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 176.00005340576172,
+    "y": 716.0000743865967,
+    "wires": [
+      [
+        "785a44eb.6d49ac"
+      ]
+    ]
+  },
+  {
+    "id": "761fd73a.a236a8",
+    "type": "ibmiot in",
+    "z": "90a04a4c.380468",
+    "authentication": "quickstart",
+    "apiKey": "",
+    "inputType": "evt",
+    "logicalInterface": "",
+    "ruleId": "",
+    "deviceId": "AM1V310_30524D",
+    "applicationId": "",
+    "deviceType": "+",
+    "eventType": "+",
+    "commandType": "",
+    "format": "json",
+    "name": "IBM IoT App In",
+    "service": "quickstart",
+    "allDevices": false,
+    "allApplications": false,
+    "allDeviceTypes": true,
+    "allLogicalInterfaces": false,
+    "allEvents": true,
+    "allCommands": false,
+    "allFormats": false,
+    "qos": "0",
+    "x": 100,
+    "y": 660,
+    "wires": [
+      [
+        "7b3744a4.93540c"
+      ]
+    ]
+  },
+  {
+    "id": "785a44eb.6d49ac",
+    "type": "function",
+    "z": "90a04a4c.380468",
+    "name": "Def Kick",
+    "func": "var kick = global.get( \"kcount\")||0;\n// sprint++;\nglobal.set('kcount', kick);\nmsg.payload.kick = kick; //<<just add a property to msg instead of returning a new one!\nreturn msg;//return the original msg that was passed in - it will still have stuff from previous node!",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 320.0000457763672,
+    "y": 716.0001449584961,
+    "wires": [
+      [
+        "9024cd4f.f00dd"
+      ]
+    ]
+  },
+  {
+    "id": "ef149dc2.b2fdb",
+    "type": "debug",
+    "z": "90a04a4c.380468",
+    "name": "Sprints",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload.sprint",
+    "targetType": "msg",
+    "x": 632.0000467300415,
+    "y": 756.000036239624,
+    "wires": [],
+    "l": false
+  },
+  {
+    "id": "c7aaf186.c7682",
+    "type": "rbe",
+    "z": "90a04a4c.380468",
+    "name": "Gate",
+    "func": "deadbandEq",
+    "gap": "1",
+    "start": "",
+    "inout": "out",
+    "property": "payload.state",
+    "x": 446.7144584655762,
+    "y": 809.8571863174438,
+    "wires": [
+      [
+        "9885d2af.cc3c7"
+      ]
+    ]
+  },
+  {
+    "id": "79821c58.55f284",
+    "type": "e-mail",
+    "z": "90a04a4c.380468",
+    "server": "smtp.gmail.com",
+    "port": "465",
+    "secure": true,
+    "tls": true,
+    "name": "rayy.islam@gmail.com",
+    "dname": "",
+    "x": 783.7144546508789,
+    "y": 980.2859191894531,
+    "wires": []
+  },
+  {
+    "id": "9885d2af.cc3c7",
+    "type": "function",
+    "z": "90a04a4c.380468",
+    "name": "EMail",
+    "func": "msg = {\n    payload : \"Remove Player Now\",\n    topic : \"KICX ALERT\",\n};\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 688.7144546508789,
+    "y": 939.2859153747559,
+    "wires": [
+      [
+        "79821c58.55f284"
+      ]
+    ]
+  },
+  {
+    "id": "2d5c4ad9.9d3236",
+    "type": "ui_text",
+    "z": "90a04a4c.380468",
+    "group": "4739bcf0.f94c54",
+    "order": 0,
+    "width": "0",
+    "height": "0",
+    "name": "Kicks DashBoard",
+    "label": "Kicks",
+    "format": "{{msg.payload.kick}}",
+    "layout": "row-spread",
+    "x": 674.7143859863281,
+    "y": 451.42890548706055,
+    "wires": []
+  },
+  {
+    "id": "95f209f5.30e8a8",
+    "type": "ui_gauge",
+    "z": "90a04a4c.380468",
+    "name": "Kick Gauge",
+    "group": "4739bcf0.f94c54",
+    "order": 2,
+    "width": 0,
+    "height": 0,
+    "gtype": "gage",
+    "title": "Kicks Gauge",
+    "label": "Kicks",
+    "format": "{{msg.payload.kick}}",
+    "min": 0,
+    "max": "15",
+    "colors": [
+      "#5209ac",
+      "#bf26a5",
+      "#f98c09"
+    ],
+    "seg1": "",
+    "seg2": "",
+    "x": 683.7143096923828,
+    "y": 497.42859268188477,
+    "wires": []
+  },
+  {
+    "id": "f00aff1a.0af91",
+    "type": "ui_gauge",
+    "z": "90a04a4c.380468",
+    "name": "Sprint Gauge",
+    "group": "4739bcf0.f94c54",
+    "order": 2,
+    "width": 0,
+    "height": 0,
+    "gtype": "donut",
+    "title": "Distance Sprinted",
+    "label": "miles",
+    "format": "{{msg.payload.sprint}}",
+    "min": 0,
+    "max": ".500",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "",
+    "seg2": "",
+    "x": 678.0000305175781,
+    "y": 552.1429128646851,
+    "wires": []
+  },
+  {
+    "id": "37048ce1.82a004",
+    "type": "ui_text",
+    "z": "90a04a4c.380468",
+    "group": "4739bcf0.f94c54",
+    "order": 3,
+    "width": 0,
+    "height": 0,
+    "name": "Sprint Dash Board",
+    "label": "Sprint",
+    "format": "{{msg.payload.sprint}}",
+    "layout": "row-spread",
+    "x": 679.7143096923828,
+    "y": 619.5714454650879,
+    "wires": []
+  }
+]
