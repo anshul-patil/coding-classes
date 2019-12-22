@@ -1,4 +1,5 @@
 .DS_Store
+*.MOV
 
 # Compiled class file
 *.class
