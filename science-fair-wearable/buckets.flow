@@ -87,8 +87,8 @@
     ],
     "seg1": "250",
     "seg2": "600",
-    "x": 775,
-    "y": 270,
+    "x": 837,
+    "y": 222,
     "wires": []
   },
   {
@@ -347,8 +347,8 @@
     "tostatus": false,
     "complete": "payload",
     "targetType": "msg",
-    "x": 780,
-    "y": 395,
+    "x": 675,
+    "y": 445,
     "wires": []
   },
   {
@@ -366,7 +366,7 @@
     "randomLast": "5",
     "randomUnits": "seconds",
     "drop": true,
-    "x": 575,
+    "x": 560,
     "y": 395,
     "wires": [
       [
@@ -379,7 +379,7 @@
     "type": "debug",
     "z": "4f6a7f33.b45728",
     "name": "Shots",
-    "active": true,
+    "active": false,
     "tosidebar": true,
     "console": false,
     "tostatus": false,
@@ -394,7 +394,7 @@
     "type": "function",
     "z": "4f6a7f33.b45728",
     "name": "WindowCountShots",
-    "func": "// determines the average of all payload values passed in \n// over the specified time range\n// https://discourse.nodered.org/t/nodes-suggestion-for-timed-rolling-average-and-desynchronised-sum/4933\nconst range = 20;   // window time millisecs\nlet buffer = context.get('buffer') || [];\nlet shots = context.get('shots') || 0;   // the accumulated total so far\n//use the gyroscope Y values\nlet value = Number(msg.payload.GY);\n// remove any samples that are too old\nwhile (buffer.length >= range-1) \n{\n    // remove oldest sample from array and total\n    //node.warn(`removing oldest ${buffer[0].value}`);\n    buffer.shift();\n}\n// add the new sample to the end\nbuffer.push({value: value});\ncontext.set('buffer', buffer);\n\nif (buffer.length > 10)//looks at a full second of data\n{\n    var min = 5000;\n    var max = -5000;\n    for (i = 0; i < buffer.length; i++)\n    {\n        if (buffer[i].value < min)//for all the data in the half-second, the max and min value are initzialized\n        {\n            min = buffer[i].value;\n        }\n        if (buffer[i].value > max)\n        {\n            max = buffer[i].value;\n        }\n    }\n    if (min < -100 && max > 325)//if the min and max in within the thresholds, it counts as a shot\n    {\n        shots++;\n        context.set('buffer', []);\n        \n    }\n    node.warn(`length: ${buffer.length}, min: ${min}, max: ${max}, shots: ${shots}`);//prints out the data values in the display\n\n}\n//record steps in context\ncontext.set('shots', shots);\n\nmsg.payload.shots = context.get('shots');\nreturn msg;",
+    "func": "// determines the average of all payload values passed in \n// over the specified time range\n// https://discourse.nodered.org/t/nodes-suggestion-for-timed-rolling-average-and-desynchronised-sum/4933\nconst range = 20;   // window time millisecs\nlet buffer = context.get('buffer') || [];\nlet shots = context.get('shots') || 0;   // the accumulated total so far\n//use the gyroscope Y values\nlet value = Number(msg.payload.GY);\n// remove any samples that are too old\nwhile (buffer.length >= range-1) \n{\n    // remove oldest sample from array and total\n    //node.warn(`removing oldest ${buffer[0].value}`);\n    buffer.shift();\n}\n// add the new sample to the end\nbuffer.push({value: value});\ncontext.set('buffer', buffer);\n\nif (buffer.length > 10)//looks at a full second of data\n{\n    var min = 5000;\n    var max = -5000;\n    for (i = 0; i < buffer.length; i++)\n    {\n        if (buffer[i].value < min)//for all the data in the half-second, the max and min value are initzialized\n        {\n            min = buffer[i].value;\n        }\n        if (buffer[i].value > max)\n        {\n            max = buffer[i].value;\n        }\n    }\n    if (min < -100 && max > 325)//if the min and max in within the thresholds, it counts as a shot\n    {\n        shots++;\n        context.set('buffer', []);\n        \n    }\n    if (min < -50 && max > 100) \n    {\n        node.warn(`length: ${buffer.length}, min: ${min}, max: ${max}, shots: ${shots}`);//prints out the data values in the display\n    }\n}\n//record steps in context\ncontext.set('shots', shots);\n\nmsg.payload.shots = context.get('shots');\nreturn msg;",
     "outputs": 1,
     "noerr": 0,
     "x": 546,
@@ -402,7 +402,8 @@
     "wires": [
       [
         "55321941.a5ec98",
-        "48cd150a.e73e8c"
+        "48cd150a.e73e8c",
+        "68dbfb54.4a3d04"
       ]
     ]
   },
@@ -419,7 +420,8 @@
     "wires": [
       [
         "ef76726a.bd0a98",
-        "f07eaebd.1f01a"
+        "f07eaebd.1f01a",
+        "68dbfb54.4a3d04"
       ]
     ]
   },
@@ -434,8 +436,8 @@
     "tostatus": false,
     "complete": "payload",
     "targetType": "msg",
-    "x": 783,
-    "y": 133,
+    "x": 840,
+    "y": 130,
     "wires": []
   },
   {
@@ -446,13 +448,14 @@
     "func": "// determines the average of all payload values passed in \n// over the specified time range\nconst range = 20;   // window time millisecs\nlet buffer = context.get('buffer') || [];\nlet steps = context.get('steps') || 0;   // the accumulated total so far\n//use the Accelerometer Z values\nlet value = Number(msg.payload.AZ);\n// remove any samples that are too old\nwhile (buffer.length >= range-1) \n{\n    // remove oldest sample from array and total\n    //node.warn(`removing oldest ${buffer[0].value}`);\n    buffer.shift();\n}\n// add the new sample to the end\nbuffer.push({value: value});\ncontext.set('buffer', buffer);\n\nif (buffer.length > 5)//counts data within a half-second\n{\n    //find largest amplitude seen every half-second\n    var min = 5000;//hypothetical min\n    var max = -5000;//hypothetical max\n    var doublexamplitude = 0;\n    for (var i = 0; i < buffer.length; i++)//for all the data in the half-second, the max and min value are initzialized\n    {\n        if (buffer[i].value < min)\n        {\n            min = buffer[i].value;\n        }\n        if (buffer[i].value > max)\n        {\n            max = buffer[i].value;\n        }\n    }\n    //amplitude\n    doublexamplitude = max - min;\n    if (doublexamplitude > 1800 && doublexamplitude <= 3900)\n    //if the amplitude of the return data is within threshold, it counts an a step\n    {\n        steps++;\n        steps++;//two steps count as one because sensor is only on one hand so you must account for the other hand\n        for (i = 0; i < 5; i++)//once all the samples are in the window, the window shifts over to get new samples\n        {\n            buffer.shift();\n        }\n        context.set('buffer', buffer);\n    }\n    if (doublexamplitude > 1500) \n    {//it will only print values of the amplitude is over 1500 \n        node.warn(`length: ${buffer.length}, min: ${min}, max: ${max}, da: ${doublexamplitude}, steps: ${steps}`);\n    }\n}\n//record steps in context\ncontext.set('steps', steps);\nmsg.payload.steps = context.get('steps');\nmsg.payload.distance = msg.payload.steps/1000;//There's 100 steps in a mile while sprinting, so to convert you must divide the steps by 1000\nreturn msg;",
     "outputs": 1,
     "noerr": 0,
-    "x": 565,
-    "y": 320,
+    "x": 555,
+    "y": 225,
     "wires": [
       [
         "8d0549e4.aac1b8",
         "da121ea9.70de9",
-        "7dee8db9.c0aedc"
+        "7dee8db9.c0aedc",
+        "68dbfb54.4a3d04"
       ]
     ]
   },
@@ -492,8 +495,8 @@
     ],
     "seg1": "15",
     "seg2": "30",
-    "x": 790,
-    "y": 172,
+    "x": 847,
+    "y": 169,
     "wires": []
   },
   {
@@ -518,8 +521,8 @@
     ],
     "seg1": ".25",
     "seg2": ".6",
-    "x": 780,
-    "y": 340,
+    "x": 832,
+    "y": 292,
     "wires": []
   },
   {
@@ -533,8 +536,8 @@
     "tostatus": false,
     "complete": "payload",
     "targetType": "msg",
-    "x": 775,
-    "y": 305,
+    "x": 817,
+    "y": 257,
     "wires": []
   },
   {
@@ -593,8 +596,8 @@
     "z": "4f6a7f33.b45728",
     "name": "Analyze Z for Steps",
     "info": "To automatically send data:\n1. Change *Repeat* to interval.\n2. Click Deploy button.\n",
-    "x": 555,
-    "y": 280,
+    "x": 550,
+    "y": 185,
     "wires": []
   },
   {
@@ -621,16 +624,81 @@
     "id": "269f28fd.fb475",
     "type": "rbe",
     "z": "4f6a7f33.b45728",
-    "name": "Gate",
-    "func": "narrowbandEq",
+    "name": "Done",
+    "func": "deadbandEq",
     "gap": "1",
     "start": "",
-    "inout": "out",
-    "property": "payload.state",
-    "x": 260,
-    "y": 740,
+    "inout": "in",
+    "property": "payload.done",
+    "x": 890,
+    "y": 435,
+    "wires": [
+      [
+        "abb01c3f.92b34"
+      ]
+    ]
+  },
+  {
+    "id": "abb01c3f.92b34",
+    "type": "ui_toast",
+    "z": "4f6a7f33.b45728",
+    "position": "dialog",
+    "displayTime": "60",
+    "highlight": "",
+    "sendall": true,
+    "outputs": 1,
+    "ok": "OK",
+    "cancel": "",
+    "topic": "Workout is now complete!",
+    "name": "Workout Complete",
+    "x": 950,
+    "y": 485,
     "wires": [
       []
+    ]
+  },
+  {
+    "id": "68dbfb54.4a3d04",
+    "type": "join",
+    "z": "4f6a7f33.b45728",
+    "name": "Merge Stats",
+    "mode": "custom",
+    "build": "merged",
+    "property": "payload",
+    "propertyType": "msg",
+    "key": "topic",
+    "joiner": "\\n",
+    "joinerType": "str",
+    "accumulate": true,
+    "timeout": "",
+    "count": "1",
+    "reduceRight": false,
+    "reduceExp": "",
+    "reduceInit": "",
+    "reduceInitType": "num",
+    "reduceFixup": "",
+    "x": 825,
+    "y": 335,
+    "wires": [
+      [
+        "7a7a70d7.7c645"
+      ]
+    ]
+  },
+  {
+    "id": "7a7a70d7.7c645",
+    "type": "function",
+    "z": "4f6a7f33.b45728",
+    "name": "Workout Complete",
+    "func": "if (msg.payload.shots >= 30 && msg.payload.steps >= 1000 && msg.payload.dribbles >= 50)\n{\n    msg.payload.done = 1;\n    // node.warn(`workout complete`)\n}\nelse\n{\n    // node.warn(`shots: ${msg.payload.shots}, dribbles: ${msg.payload.dribbles}, steps: ${msg.payload.steps}`)\n    msg.payload.done = 0;    \n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 880,
+    "y": 380,
+    "wires": [
+      [
+        "269f28fd.fb475"
+      ]
     ]
   },
   {
