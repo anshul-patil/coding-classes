@@ -7,16 +7,6 @@
     "info": "Kicx Kicks"
   },
   {
-    "id": "183c4403.114db4",
-    "type": "comment",
-    "z": "4f6a7f33.b45728",
-    "name": "Device Simulator",
-    "info": "Sends simulated device sensor data to IBM Watson IoT Plaform.\n\nCan be configured to send on click or on an automatic interval.\n\n\n#Prerequisite\nOutput node device type and device ID need to match a device that it registered in a running IBM Watson IoT Platform service.\n\n# Watson IoT Platform docs\n[Connecting devices](https://www.bluemix.net/docs/services/IoT/iotplatform_task.html)",
-    "x": 100,
-    "y": 40,
-    "wires": []
-  },
-  {
     "id": "a70134f4.39ca2",
     "type": "ibmiot in",
     "z": "4f6a7f33.b45728",
@@ -31,7 +21,7 @@
     "eventType": "+",
     "commandType": "",
     "format": "json",
-    "name": "IBM IoT App In",
+    "name": "STD48",
     "service": "registered",
     "allDevices": false,
     "allApplications": false,
@@ -41,8 +31,8 @@
     "allCommands": false,
     "allFormats": false,
     "qos": "0",
-    "x": 85,
-    "y": 300,
+    "x": 60,
+    "y": 395,
     "wires": [
       [
         "c98b8065.92c108"
@@ -63,16 +53,16 @@
     "label": "Shots",
     "format": "{{msg.payload.shots}}",
     "min": 0,
-    "max": "200",
+    "max": "30",
     "colors": [
-      "#00b500",
+      "#ff2600",
       "#e6e600",
-      "#ca3838"
+      "#00fa00"
     ],
-    "seg1": "100",
-    "seg2": "150",
-    "x": 846.5,
-    "y": 485,
+    "seg1": "10",
+    "seg2": "20",
+    "x": 765,
+    "y": 555,
     "wires": []
   },
   {
@@ -89,16 +79,16 @@
     "label": "Steps",
     "format": "{{msg.payload.steps}}",
     "min": 0,
-    "max": "3000",
+    "max": "1000",
     "colors": [
-      "#00b500",
+      "#ff2600",
       "#e6e600",
-      "#ca3838"
+      "#00fa00"
     ],
-    "seg1": "1",
-    "seg2": "2",
-    "x": 833.5,
-    "y": 173,
+    "seg1": "250",
+    "seg2": "600",
+    "x": 775,
+    "y": 270,
     "wires": []
   },
   {
@@ -123,8 +113,8 @@
     "checkall": "true",
     "repair": false,
     "outputs": 2,
-    "x": 305,
-    "y": 298,
+    "x": 270,
+    "y": 395,
     "wires": [
       [
         "e14cdcd9.e7ee48",
@@ -164,8 +154,8 @@
     "from": "",
     "to": "",
     "reg": false,
-    "x": 295,
-    "y": 109,
+    "x": 290,
+    "y": 205,
     "wires": [
       [
         "10284ab3.c3bb85",
@@ -199,8 +189,8 @@
     "from": "",
     "to": "",
     "reg": false,
-    "x": 295,
-    "y": 149,
+    "x": 285,
+    "y": 245,
     "wires": [
       [
         "10284ab3.c3bb85"
@@ -233,8 +223,8 @@
     "from": "",
     "to": "",
     "reg": false,
-    "x": 290,
-    "y": 206,
+    "x": 285,
+    "y": 285,
     "wires": [
       [
         "10284ab3.c3bb85",
@@ -268,8 +258,8 @@
     "from": "",
     "to": "",
     "reg": false,
-    "x": 281,
-    "y": 390,
+    "x": 280,
+    "y": 490,
     "wires": [
       [
         "10284ab3.c3bb85"
@@ -302,8 +292,8 @@
     "from": "",
     "to": "",
     "reg": false,
-    "x": 281,
-    "y": 430,
+    "x": 280,
+    "y": 530,
     "wires": [
       [
         "10284ab3.c3bb85",
@@ -338,8 +328,8 @@
     "from": "",
     "to": "",
     "reg": false,
-    "x": 281,
-    "y": 470,
+    "x": 280,
+    "y": 570,
     "wires": [
       [
         "10284ab3.c3bb85"
@@ -351,14 +341,14 @@
     "type": "debug",
     "z": "4f6a7f33.b45728",
     "name": "Data",
-    "active": true,
+    "active": false,
     "tosidebar": true,
     "console": false,
     "tostatus": false,
     "complete": "payload",
     "targetType": "msg",
-    "x": 829,
-    "y": 296,
+    "x": 780,
+    "y": 395,
     "wires": []
   },
   {
@@ -376,8 +366,8 @@
     "randomLast": "5",
     "randomUnits": "seconds",
     "drop": true,
-    "x": 618,
-    "y": 281,
+    "x": 575,
+    "y": 395,
     "wires": [
       [
         "c132a0d0.3ddca"
@@ -395,8 +385,8 @@
     "tostatus": false,
     "complete": "payload",
     "targetType": "msg",
-    "x": 827,
-    "y": 431,
+    "x": 760,
+    "y": 510,
     "wires": []
   },
   {
@@ -404,15 +394,15 @@
     "type": "function",
     "z": "4f6a7f33.b45728",
     "name": "WindowCountShots",
-    "func": "// determines the average of all payload values passed in \n// over the specified time range\n// https://discourse.nodered.org/t/nodes-suggestion-for-timed-rolling-average-and-desynchronised-sum/4933\nconst range = 20;   // window time millisecs\nlet buffer = context.get('buffer') || [];\nlet shots = context.get('shots') || 0;   // the accumulated total so far\n\nlet value = Number(msg.payload.GY);\n// remove any samples that are too old\nwhile (buffer.length >= range-1) {\n    // remove oldest sample from array and total\n    node.warn(`removing oldest ${buffer[0].value}`);\n    buffer.shift();\n}\n// add the new sample to the end\nbuffer.push({value: value});\ncontext.set('buffer', buffer);\n\nif (buffer.length > 10)\n{\n    var min = 5000;\n    var max = -5000;\n    for (i = 0; i < buffer.length; i++)\n    {\n        if (buffer[i].value < min)\n        {\n            min = buffer[i].value;\n        }\n        if (buffer[i].value > max)\n        {\n            max = buffer[i].value;\n        }\n    }\n    node.warn(`length: ${buffer.length}, min: ${min}, max: ${max}`);\n    if (min < -100 && max > 500)\n    {\n        shots++;\n        context.set('buffer', []);\n        \n    }\n}\ncontext.set('shots', shots);\n\nmsg.payload.shots = context.get('shots');\nreturn msg;",
+    "func": "// determines the average of all payload values passed in \n// over the specified time range\n// https://discourse.nodered.org/t/nodes-suggestion-for-timed-rolling-average-and-desynchronised-sum/4933\nconst range = 20;   // window time millisecs\nlet buffer = context.get('buffer') || [];\nlet shots = context.get('shots') || 0;   // the accumulated total so far\n//use the gyroscope Y values\nlet value = Number(msg.payload.GY);\n// remove any samples that are too old\nwhile (buffer.length >= range-1) \n{\n    // remove oldest sample from array and total\n    //node.warn(`removing oldest ${buffer[0].value}`);\n    buffer.shift();\n}\n// add the new sample to the end\nbuffer.push({value: value});\ncontext.set('buffer', buffer);\n\nif (buffer.length > 10)//looks at a full second of data\n{\n    var min = 5000;\n    var max = -5000;\n    for (i = 0; i < buffer.length; i++)\n    {\n        if (buffer[i].value < min)//for all the data in the half-second, the max and min value are initzialized\n        {\n            min = buffer[i].value;\n        }\n        if (buffer[i].value > max)\n        {\n            max = buffer[i].value;\n        }\n    }\n    if (min < -100 && max > 325)//if the min and max in within the thresholds, it counts as a shot\n    {\n        shots++;\n        context.set('buffer', []);\n        \n    }\n    node.warn(`length: ${buffer.length}, min: ${min}, max: ${max}, shots: ${shots}`);//prints out the data values in the display\n\n}\n//record steps in context\ncontext.set('shots', shots);\n\nmsg.payload.shots = context.get('shots');\nreturn msg;",
     "outputs": 1,
     "noerr": 0,
-    "x": 559,
-    "y": 430,
+    "x": 546,
+    "y": 524,
     "wires": [
       [
-        "48cd150a.e73e8c",
-        "55321941.a5ec98"
+        "55321941.a5ec98",
+        "48cd150a.e73e8c"
       ]
     ]
   },
@@ -421,15 +411,15 @@
     "type": "function",
     "z": "4f6a7f33.b45728",
     "name": "WindowCountDribbles",
-    "func": "// determines the average of all payload values passed in \n// over the specified time range\nconst range = 20;   // window time millisecs\nlet buffer = context.get('buffer') || [];\nlet dribbles = context.get('dribbles') || 0;   // the accumulated total so far\n\nlet value = Number(msg.payload.AX);\n// remove any samples that are too old\nwhile (buffer.length >= range-1) {\n    // remove oldest sample from array and total\n    node.warn(`removing oldest ${buffer[0].value}`);\n    buffer.shift();\n}\n// add the new sample to the end\nbuffer.push({value: value});\ncontext.set('buffer', buffer);\n\nif (buffer.length > 10)\n{\n    var min = 5000;\n    var max = -5000;\n    var doublexamplitude = 0;\n    for (var i = 0; i < buffer.length; i++)\n    {\n        if (buffer[i].value < min)\n        {\n            min = buffer[i].value;\n        }\n        if (buffer[i].value > max)\n        {\n            max = buffer[i].value;\n        }\n    }\n    doublexamplitude = max - min;\n    node.warn(`length: ${buffer.length}, min: ${min}, max: ${max}, da: ${doublexamplitude}`);\n    if (doublexamplitude > 2000 && doublexamplitude <= 3200)\n    {\n        dribbles++;\n        context.set('buffer', []);\n        \n    }\n}\ncontext.set('dribbles', dribbles);\n\nmsg.payload.dribbles = context.get('dribbles');\nreturn msg;",
+    "func": "// over the specified time range\nconst range = 20;   // 2 second window time \nlet buffer = context.get('buffer') || [];\nlet dribbles = context.get('dribbles') || 0;   // the accumulated total so far\n\n//use accelerometer X values\nlet value = Number(msg.payload.AX);\n// remove any samples that are too old\nwhile (buffer.length >= range-1) \n{\n    // remove oldest sample from array\n    //node.warn(`removing oldest ${buffer[0].value}`);\n    buffer.shift();\n}\n// add the new sample to the end\nbuffer.push({value: value});\ncontext.set('buffer', buffer);\n\nif (buffer.length > 5)//This looks at every half second of data\n{\n    //find largest amplitude seen every half-second\n    var min = 5000;\n    var max = -5000;\n    var doublexamplitude = 0;\n    for (var i = 0; i < 5; i++)//for all the data in the half-second, the max and min value are initzialized\n    {\n        if (buffer[i].value < min)\n        {\n            min = buffer[i].value;\n        }\n        if (buffer[i].value > max)\n        {\n            max = buffer[i].value;\n        }\n    }\n    //amplitude\n    doublexamplitude = max - min;\n    //if the amplitude of the return data is within threshold, it counts an a dribble\n    if (doublexamplitude > 625 && doublexamplitude <= 3200)\n    {\n        dribbles++;\n        //once a dribble is seen, window is cleared out\n        for (i = 0; i < 5; i++)\n        {\n            buffer.shift();           \n        }\n        context.set('buffer', buffer);\n    }\n    //easy to debug print values of the amplitude is over 500\n    if (doublexamplitude > 500) \n    {\n        node.warn(`length: ${buffer.length}, min: ${min}, max: ${max}, da: ${doublexamplitude}, dribbles: ${dribbles}`);\n    }\n}\n\n//record dribbles in context\ncontext.set('dribbles', dribbles);\nmsg.payload.dribbles = context.get('dribbles');\nreturn msg;",
     "outputs": 1,
     "noerr": 0,
-    "x": 597,
-    "y": 36,
+    "x": 575,
+    "y": 130,
     "wires": [
       [
-        "f07eaebd.1f01a",
-        "ef76726a.bd0a98"
+        "ef76726a.bd0a98",
+        "f07eaebd.1f01a"
       ]
     ]
   },
@@ -438,14 +428,14 @@
     "type": "debug",
     "z": "4f6a7f33.b45728",
     "name": "Dribbles",
-    "active": true,
+    "active": false,
     "tosidebar": true,
     "console": false,
     "tostatus": false,
     "complete": "payload",
     "targetType": "msg",
-    "x": 818,
-    "y": 32,
+    "x": 783,
+    "y": 133,
     "wires": []
   },
   {
@@ -453,11 +443,11 @@
     "type": "function",
     "z": "4f6a7f33.b45728",
     "name": "WindowCountSteps",
-    "func": "// determines the average of all payload values passed in \n// over the specified time range\nconst range = 20;   // window time millisecs\nlet buffer = context.get('buffer') || [];\nlet steps = context.get('steps') || 0;   // the accumulated total so far\n\nlet value = Number(msg.payload.AZ);\n// remove any samples that are too old\nwhile (buffer.length >= range-1) {\n    // remove oldest sample from array and total\n    node.warn(`removing oldest ${buffer[0].value}`);\n    buffer.shift();\n}\n// add the new sample to the end\nbuffer.push({value: value});\ncontext.set('buffer', buffer);\n\nif (buffer.length > 10)\n{\n    var min = 5000;\n    var max = -5000;\n    var doublexamplitude = 0;\n    for (var i = 0; i < buffer.length; i++)\n    {\n        if (buffer[i].value < min)\n        {\n            min = buffer[i].value;\n        }\n        if (buffer[i].value > max)\n        {\n            max = buffer[i].value;\n        }\n    }\n    doublexamplitude = max - min;\n    node.warn(`length: ${buffer.length}, min: ${min}, max: ${max}, da: ${doublexamplitude}`);\n    if (doublexamplitude > 3000 && doublexamplitude <= 3900)\n    {\n        steps++;\n        context.set('buffer', []);\n        \n    }\n}\ncontext.set('steps', steps);\nmsg.payload.steps = context.get('steps');\nmsg.payload.distance = msg.payload.steps/1000;\nreturn msg;",
+    "func": "// determines the average of all payload values passed in \n// over the specified time range\nconst range = 20;   // window time millisecs\nlet buffer = context.get('buffer') || [];\nlet steps = context.get('steps') || 0;   // the accumulated total so far\n//use the Accelerometer Z values\nlet value = Number(msg.payload.AZ);\n// remove any samples that are too old\nwhile (buffer.length >= range-1) \n{\n    // remove oldest sample from array and total\n    //node.warn(`removing oldest ${buffer[0].value}`);\n    buffer.shift();\n}\n// add the new sample to the end\nbuffer.push({value: value});\ncontext.set('buffer', buffer);\n\nif (buffer.length > 5)//counts data within a half-second\n{\n    //find largest amplitude seen every half-second\n    var min = 5000;//hypothetical min\n    var max = -5000;//hypothetical max\n    var doublexamplitude = 0;\n    for (var i = 0; i < buffer.length; i++)//for all the data in the half-second, the max and min value are initzialized\n    {\n        if (buffer[i].value < min)\n        {\n            min = buffer[i].value;\n        }\n        if (buffer[i].value > max)\n        {\n            max = buffer[i].value;\n        }\n    }\n    //amplitude\n    doublexamplitude = max - min;\n    if (doublexamplitude > 1800 && doublexamplitude <= 3900)\n    //if the amplitude of the return data is within threshold, it counts an a step\n    {\n        steps++;\n        steps++;//two steps count as one because sensor is only on one hand so you must account for the other hand\n        for (i = 0; i < 5; i++)//once all the samples are in the window, the window shifts over to get new samples\n        {\n            buffer.shift();\n        }\n        context.set('buffer', buffer);\n    }\n    if (doublexamplitude > 1500) \n    {//it will only print values of the amplitude is over 1500 \n        node.warn(`length: ${buffer.length}, min: ${min}, max: ${max}, da: ${doublexamplitude}, steps: ${steps}`);\n    }\n}\n//record steps in context\ncontext.set('steps', steps);\nmsg.payload.steps = context.get('steps');\nmsg.payload.distance = msg.payload.steps/1000;//There's 100 steps in a mile while sprinting, so to convert you must divide the steps by 1000\nreturn msg;",
     "outputs": 1,
     "noerr": 0,
-    "x": 593,
-    "y": 166,
+    "x": 565,
+    "y": 320,
     "wires": [
       [
         "8d0549e4.aac1b8",
@@ -474,8 +464,8 @@
     "func": "var shots = global.get(\"shots\")||0;\nglobal.set('shots', shots);\nvar gy = msg.payload.GY ////get the gyro value\nif (gy > 600) {\n    shots++;   \n    global.set('shots', shots);\n}\nmsg.payload.shots = shots;//update payload.sprint for the next node!\nreturn msg;//return msg with all the original stuff + the updated sprint value",
     "outputs": 1,
     "noerr": 0,
-    "x": 557,
-    "y": 514,
+    "x": 544,
+    "y": 608,
     "wires": [
       []
     ]
@@ -494,16 +484,16 @@
     "label": "Dribbles",
     "format": "{{msg.payload.dribbles}}",
     "min": 0,
-    "max": "3",
+    "max": "50",
     "colors": [
-      "#00b500",
+      "#ff2600",
       "#e6e600",
-      "#ca3838"
+      "#00fa00"
     ],
-    "seg1": "1",
-    "seg2": "2",
-    "x": 836,
-    "y": 77,
+    "seg1": "15",
+    "seg2": "30",
+    "x": 790,
+    "y": 172,
     "wires": []
   },
   {
@@ -520,16 +510,16 @@
     "label": "miles",
     "format": "{{msg.payload.distance}}",
     "min": 0,
-    "max": "3",
+    "max": "1",
     "colors": [
       "#00b500",
       "#e6e600",
       "#ca3838"
     ],
-    "seg1": "1",
-    "seg2": "2",
-    "x": 834,
-    "y": 214,
+    "seg1": ".25",
+    "seg2": ".6",
+    "x": 780,
+    "y": 340,
     "wires": []
   },
   {
@@ -537,15 +527,111 @@
     "type": "debug",
     "z": "4f6a7f33.b45728",
     "name": "Steps",
-    "active": true,
+    "active": false,
     "tosidebar": true,
     "console": false,
     "tostatus": false,
     "complete": "payload",
     "targetType": "msg",
-    "x": 824,
-    "y": 131,
+    "x": 775,
+    "y": 305,
     "wires": []
+  },
+  {
+    "id": "de59939b.4da8e8",
+    "type": "comment",
+    "z": "4f6a7f33.b45728",
+    "name": "Watson Cloud IOT Device",
+    "info": "To automatically send data:\n1. Change *Repeat* to interval.\n2. Click Deploy button.\n",
+    "x": 115,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "89d4b86e.856218",
+    "type": "comment",
+    "z": "4f6a7f33.b45728",
+    "name": "Separate Out Sensor Data",
+    "info": "To automatically send data:\n1. Change *Repeat* to interval.\n2. Click Deploy button.\n",
+    "x": 285,
+    "y": 95,
+    "wires": []
+  },
+  {
+    "id": "8b474b02.8f9cd",
+    "type": "comment",
+    "z": "4f6a7f33.b45728",
+    "name": "Accelerometer Data",
+    "info": "To automatically send data:\n1. Change *Repeat* to interval.\n2. Click Deploy button.\n",
+    "x": 277,
+    "y": 161,
+    "wires": []
+  },
+  {
+    "id": "7cef0777.1378b",
+    "type": "comment",
+    "z": "4f6a7f33.b45728",
+    "name": "Gyroscope Data",
+    "info": "To automatically send data:\n1. Change *Repeat* to interval.\n2. Click Deploy button.\n",
+    "x": 255,
+    "y": 610,
+    "wires": []
+  },
+  {
+    "id": "3061dafa.ed63e6",
+    "type": "comment",
+    "z": "4f6a7f33.b45728",
+    "name": "Analyze X for Dribbles",
+    "info": "To automatically send data:\n1. Change *Repeat* to interval.\n2. Click Deploy button.\n",
+    "x": 580,
+    "y": 85,
+    "wires": []
+  },
+  {
+    "id": "6a31631d.46af34",
+    "type": "comment",
+    "z": "4f6a7f33.b45728",
+    "name": "Analyze Z for Steps",
+    "info": "To automatically send data:\n1. Change *Repeat* to interval.\n2. Click Deploy button.\n",
+    "x": 555,
+    "y": 280,
+    "wires": []
+  },
+  {
+    "id": "9b70f51c.63bab8",
+    "type": "comment",
+    "z": "4f6a7f33.b45728",
+    "name": "Analyze Y for Shots",
+    "info": "To automatically send data:\n1. Change *Repeat* to interval.\n2. Click Deploy button.\n",
+    "x": 541,
+    "y": 487,
+    "wires": []
+  },
+  {
+    "id": "55a1f7ae.98d298",
+    "type": "comment",
+    "z": "4f6a7f33.b45728",
+    "name": "Dashboard",
+    "info": "To automatically send data:\n1. Change *Repeat* to interval.\n2. Click Deploy button.\n",
+    "x": 780,
+    "y": 32,
+    "wires": []
+  },
+  {
+    "id": "269f28fd.fb475",
+    "type": "rbe",
+    "z": "4f6a7f33.b45728",
+    "name": "Gate",
+    "func": "narrowbandEq",
+    "gap": "1",
+    "start": "",
+    "inout": "out",
+    "property": "payload.state",
+    "x": 260,
+    "y": 740,
+    "wires": [
+      []
+    ]
   },
   {
     "id": "574dea7a.a2a9a4",
@@ -562,7 +648,7 @@
     "id": "cb53c78b.147338",
     "type": "ui_group",
     "z": "",
-    "name": "With Ball",
+    "name": "Skills",
     "tab": "9119d925.f4cea8",
     "order": 2,
     "disp": true,
@@ -573,7 +659,7 @@
     "id": "3c6b7dd9.e50efa",
     "type": "ui_group",
     "z": "",
-    "name": "Without Ball",
+    "name": "Conditioning",
     "tab": "9119d925.f4cea8",
     "order": 1,
     "disp": true,
