@@ -1,0 +1,593 @@
+[
+  {
+    "id": "4f6a7f33.b45728",
+    "type": "tab",
+    "label": "Buckets",
+    "disabled": false,
+    "info": "Kicx Kicks"
+  },
+  {
+    "id": "183c4403.114db4",
+    "type": "comment",
+    "z": "4f6a7f33.b45728",
+    "name": "Device Simulator",
+    "info": "Sends simulated device sensor data to IBM Watson IoT Plaform.\n\nCan be configured to send on click or on an automatic interval.\n\n\n#Prerequisite\nOutput node device type and device ID need to match a device that it registered in a running IBM Watson IoT Platform service.\n\n# Watson IoT Platform docs\n[Connecting devices](https://www.bluemix.net/docs/services/IoT/iotplatform_task.html)",
+    "x": 100,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "a70134f4.39ca2",
+    "type": "ibmiot in",
+    "z": "4f6a7f33.b45728",
+    "authentication": "apiKey",
+    "apiKey": "574dea7a.a2a9a4",
+    "inputType": "evt",
+    "logicalInterface": "",
+    "ruleId": "",
+    "deviceId": "AM1V310_313D48",
+    "applicationId": "",
+    "deviceType": "+",
+    "eventType": "+",
+    "commandType": "",
+    "format": "json",
+    "name": "IBM IoT App In",
+    "service": "registered",
+    "allDevices": false,
+    "allApplications": false,
+    "allDeviceTypes": true,
+    "allLogicalInterfaces": false,
+    "allEvents": true,
+    "allCommands": false,
+    "allFormats": false,
+    "qos": "0",
+    "x": 85,
+    "y": 300,
+    "wires": [
+      [
+        "c98b8065.92c108"
+      ]
+    ]
+  },
+  {
+    "id": "55321941.a5ec98",
+    "type": "ui_gauge",
+    "z": "4f6a7f33.b45728",
+    "name": "Shots Guage",
+    "group": "cb53c78b.147338",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "gtype": "gage",
+    "title": "Shots",
+    "label": "Shots",
+    "format": "{{msg.payload.shots}}",
+    "min": 0,
+    "max": "200",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "100",
+    "seg2": "150",
+    "x": 846.5,
+    "y": 485,
+    "wires": []
+  },
+  {
+    "id": "8d0549e4.aac1b8",
+    "type": "ui_gauge",
+    "z": "4f6a7f33.b45728",
+    "name": "Steps Dial",
+    "group": "3c6b7dd9.e50efa",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "gtype": "gage",
+    "title": "Steps",
+    "label": "Steps",
+    "format": "{{msg.payload.steps}}",
+    "min": 0,
+    "max": "3000",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "1",
+    "seg2": "2",
+    "x": 833.5,
+    "y": 173,
+    "wires": []
+  },
+  {
+    "id": "c98b8065.92c108",
+    "type": "switch",
+    "z": "4f6a7f33.b45728",
+    "name": "SensorTile Event Types",
+    "property": "eventType",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "Accelerometer",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "Gyroscope",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 2,
+    "x": 305,
+    "y": 298,
+    "wires": [
+      [
+        "e14cdcd9.e7ee48",
+        "ba83e490.5dce7",
+        "bd5a8048.37119"
+      ],
+      [
+        "3a99298c.0271f6",
+        "af75e801.9e101",
+        "bbc8cc7c.5ea948"
+      ]
+    ]
+  },
+  {
+    "id": "e14cdcd9.e7ee48",
+    "type": "change",
+    "z": "4f6a7f33.b45728",
+    "name": "Extract Accelerometer X",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload.AX",
+        "pt": "msg",
+        "to": "payload.d.X",
+        "tot": "msg"
+      },
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "AX",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 295,
+    "y": 109,
+    "wires": [
+      [
+        "10284ab3.c3bb85",
+        "cf4524c4.3ee79"
+      ]
+    ]
+  },
+  {
+    "id": "ba83e490.5dce7",
+    "type": "change",
+    "z": "4f6a7f33.b45728",
+    "name": "Extract Accelerometer Y",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload.AY",
+        "pt": "msg",
+        "to": "payload.d.Y",
+        "tot": "msg"
+      },
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "AY",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 295,
+    "y": 149,
+    "wires": [
+      [
+        "10284ab3.c3bb85"
+      ]
+    ]
+  },
+  {
+    "id": "bd5a8048.37119",
+    "type": "change",
+    "z": "4f6a7f33.b45728",
+    "name": "Extract Accelerometer Z",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload.AZ",
+        "pt": "msg",
+        "to": "payload.d.Z",
+        "tot": "msg"
+      },
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "AZ",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 290,
+    "y": 206,
+    "wires": [
+      [
+        "10284ab3.c3bb85",
+        "e760517.d3fc63"
+      ]
+    ]
+  },
+  {
+    "id": "3a99298c.0271f6",
+    "type": "change",
+    "z": "4f6a7f33.b45728",
+    "name": "Extract Gyroscope X",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload.GX",
+        "pt": "msg",
+        "to": "payload.d.X",
+        "tot": "msg"
+      },
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "GX",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 281,
+    "y": 390,
+    "wires": [
+      [
+        "10284ab3.c3bb85"
+      ]
+    ]
+  },
+  {
+    "id": "af75e801.9e101",
+    "type": "change",
+    "z": "4f6a7f33.b45728",
+    "name": "Extract Gyroscope Y",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload.GY",
+        "pt": "msg",
+        "to": "payload.d.Y",
+        "tot": "msg"
+      },
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "GY",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 281,
+    "y": 430,
+    "wires": [
+      [
+        "10284ab3.c3bb85",
+        "ec3fe379.c75c08",
+        "fa63b738.eacab"
+      ]
+    ]
+  },
+  {
+    "id": "bbc8cc7c.5ea948",
+    "type": "change",
+    "z": "4f6a7f33.b45728",
+    "name": "Extract Gyroscope Z",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload.GZ",
+        "pt": "msg",
+        "to": "payload.d.Z",
+        "tot": "msg"
+      },
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "GZ",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 281,
+    "y": 470,
+    "wires": [
+      [
+        "10284ab3.c3bb85"
+      ]
+    ]
+  },
+  {
+    "id": "c132a0d0.3ddca",
+    "type": "debug",
+    "z": "4f6a7f33.b45728",
+    "name": "Data",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 829,
+    "y": 296,
+    "wires": []
+  },
+  {
+    "id": "10284ab3.c3bb85",
+    "type": "delay",
+    "z": "4f6a7f33.b45728",
+    "name": "",
+    "pauseType": "timed",
+    "timeout": "5",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": true,
+    "x": 618,
+    "y": 281,
+    "wires": [
+      [
+        "c132a0d0.3ddca"
+      ]
+    ]
+  },
+  {
+    "id": "48cd150a.e73e8c",
+    "type": "debug",
+    "z": "4f6a7f33.b45728",
+    "name": "Shots",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 827,
+    "y": 431,
+    "wires": []
+  },
+  {
+    "id": "ec3fe379.c75c08",
+    "type": "function",
+    "z": "4f6a7f33.b45728",
+    "name": "WindowCountShots",
+    "func": "// determines the average of all payload values passed in \n// over the specified time range\n// https://discourse.nodered.org/t/nodes-suggestion-for-timed-rolling-average-and-desynchronised-sum/4933\nconst range = 20;   // window time millisecs\nlet buffer = context.get('buffer') || [];\nlet shots = context.get('shots') || 0;   // the accumulated total so far\n\nlet value = Number(msg.payload.GY);\n// remove any samples that are too old\nwhile (buffer.length >= range-1) {\n    // remove oldest sample from array and total\n    node.warn(`removing oldest ${buffer[0].value}`);\n    buffer.shift();\n}\n// add the new sample to the end\nbuffer.push({value: value});\ncontext.set('buffer', buffer);\n\nif (buffer.length > 10)\n{\n    var min = 5000;\n    var max = -5000;\n    for (i = 0; i < buffer.length; i++)\n    {\n        if (buffer[i].value < min)\n        {\n            min = buffer[i].value;\n        }\n        if (buffer[i].value > max)\n        {\n            max = buffer[i].value;\n        }\n    }\n    node.warn(`length: ${buffer.length}, min: ${min}, max: ${max}`);\n    if (min < -100 && max > 500)\n    {\n        shots++;\n        context.set('buffer', []);\n        \n    }\n}\ncontext.set('shots', shots);\n\nmsg.payload.shots = context.get('shots');\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 559,
+    "y": 430,
+    "wires": [
+      [
+        "48cd150a.e73e8c",
+        "55321941.a5ec98"
+      ]
+    ]
+  },
+  {
+    "id": "cf4524c4.3ee79",
+    "type": "function",
+    "z": "4f6a7f33.b45728",
+    "name": "WindowCountDribbles",
+    "func": "// determines the average of all payload values passed in \n// over the specified time range\nconst range = 20;   // window time millisecs\nlet buffer = context.get('buffer') || [];\nlet dribbles = context.get('dribbles') || 0;   // the accumulated total so far\n\nlet value = Number(msg.payload.AX);\n// remove any samples that are too old\nwhile (buffer.length >= range-1) {\n    // remove oldest sample from array and total\n    node.warn(`removing oldest ${buffer[0].value}`);\n    buffer.shift();\n}\n// add the new sample to the end\nbuffer.push({value: value});\ncontext.set('buffer', buffer);\n\nif (buffer.length > 10)\n{\n    var min = 5000;\n    var max = -5000;\n    var doublexamplitude = 0;\n    for (var i = 0; i < buffer.length; i++)\n    {\n        if (buffer[i].value < min)\n        {\n            min = buffer[i].value;\n        }\n        if (buffer[i].value > max)\n        {\n            max = buffer[i].value;\n        }\n    }\n    doublexamplitude = max - min;\n    node.warn(`length: ${buffer.length}, min: ${min}, max: ${max}, da: ${doublexamplitude}`);\n    if (doublexamplitude > 2000 && doublexamplitude <= 3200)\n    {\n        dribbles++;\n        context.set('buffer', []);\n        \n    }\n}\ncontext.set('dribbles', dribbles);\n\nmsg.payload.dribbles = context.get('dribbles');\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 597,
+    "y": 36,
+    "wires": [
+      [
+        "f07eaebd.1f01a",
+        "ef76726a.bd0a98"
+      ]
+    ]
+  },
+  {
+    "id": "f07eaebd.1f01a",
+    "type": "debug",
+    "z": "4f6a7f33.b45728",
+    "name": "Dribbles",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 818,
+    "y": 32,
+    "wires": []
+  },
+  {
+    "id": "e760517.d3fc63",
+    "type": "function",
+    "z": "4f6a7f33.b45728",
+    "name": "WindowCountSteps",
+    "func": "// determines the average of all payload values passed in \n// over the specified time range\nconst range = 20;   // window time millisecs\nlet buffer = context.get('buffer') || [];\nlet steps = context.get('steps') || 0;   // the accumulated total so far\n\nlet value = Number(msg.payload.AZ);\n// remove any samples that are too old\nwhile (buffer.length >= range-1) {\n    // remove oldest sample from array and total\n    node.warn(`removing oldest ${buffer[0].value}`);\n    buffer.shift();\n}\n// add the new sample to the end\nbuffer.push({value: value});\ncontext.set('buffer', buffer);\n\nif (buffer.length > 10)\n{\n    var min = 5000;\n    var max = -5000;\n    var doublexamplitude = 0;\n    for (var i = 0; i < buffer.length; i++)\n    {\n        if (buffer[i].value < min)\n        {\n            min = buffer[i].value;\n        }\n        if (buffer[i].value > max)\n        {\n            max = buffer[i].value;\n        }\n    }\n    doublexamplitude = max - min;\n    node.warn(`length: ${buffer.length}, min: ${min}, max: ${max}, da: ${doublexamplitude}`);\n    if (doublexamplitude > 3000 && doublexamplitude <= 3900)\n    {\n        steps++;\n        context.set('buffer', []);\n        \n    }\n}\ncontext.set('steps', steps);\nmsg.payload.steps = context.get('steps');\nmsg.payload.distance = msg.payload.steps/1000;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 593,
+    "y": 166,
+    "wires": [
+      [
+        "8d0549e4.aac1b8",
+        "da121ea9.70de9",
+        "7dee8db9.c0aedc"
+      ]
+    ]
+  },
+  {
+    "id": "fa63b738.eacab",
+    "type": "function",
+    "z": "4f6a7f33.b45728",
+    "name": "ThresholdCountShots",
+    "func": "var shots = global.get(\"shots\")||0;\nglobal.set('shots', shots);\nvar gy = msg.payload.GY ////get the gyro value\nif (gy > 600) {\n    shots++;   \n    global.set('shots', shots);\n}\nmsg.payload.shots = shots;//update payload.sprint for the next node!\nreturn msg;//return msg with all the original stuff + the updated sprint value",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 557,
+    "y": 514,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "ef76726a.bd0a98",
+    "type": "ui_gauge",
+    "z": "4f6a7f33.b45728",
+    "name": "Dribbles Dial",
+    "group": "cb53c78b.147338",
+    "order": 3,
+    "width": 0,
+    "height": 0,
+    "gtype": "donut",
+    "title": "Dribbles",
+    "label": "Dribbles",
+    "format": "{{msg.payload.dribbles}}",
+    "min": 0,
+    "max": "3",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "1",
+    "seg2": "2",
+    "x": 836,
+    "y": 77,
+    "wires": []
+  },
+  {
+    "id": "da121ea9.70de9",
+    "type": "ui_gauge",
+    "z": "4f6a7f33.b45728",
+    "name": "Distance Dial",
+    "group": "3c6b7dd9.e50efa",
+    "order": 3,
+    "width": 0,
+    "height": 0,
+    "gtype": "donut",
+    "title": "Distance",
+    "label": "miles",
+    "format": "{{msg.payload.distance}}",
+    "min": 0,
+    "max": "3",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "1",
+    "seg2": "2",
+    "x": 834,
+    "y": 214,
+    "wires": []
+  },
+  {
+    "id": "7dee8db9.c0aedc",
+    "type": "debug",
+    "z": "4f6a7f33.b45728",
+    "name": "Steps",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 824,
+    "y": 131,
+    "wires": []
+  },
+  {
+    "id": "574dea7a.a2a9a4",
+    "type": "ibmiot",
+    "z": "",
+    "name": "SensortileD48",
+    "keepalive": "60",
+    "serverName": "",
+    "cleansession": true,
+    "appId": "",
+    "shared": false
+  },
+  {
+    "id": "cb53c78b.147338",
+    "type": "ui_group",
+    "z": "",
+    "name": "With Ball",
+    "tab": "9119d925.f4cea8",
+    "order": 2,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+  },
+  {
+    "id": "3c6b7dd9.e50efa",
+    "type": "ui_group",
+    "z": "",
+    "name": "Without Ball",
+    "tab": "9119d925.f4cea8",
+    "order": 1,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+  },
+  {
+    "id": "9119d925.f4cea8",
+    "type": "ui_tab",
+    "z": "",
+    "name": "Buckets",
+    "icon": "dashboard",
+    "order": 4,
+    "disabled": false,
+    "hidden": false
+  }
+]

@@ -1,0 +1,609 @@
+[
+  {
+    "id": "abc9a25c.68fe1",
+    "type": "tab",
+    "label": "SensorTile Master Dashboard",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "2be595b3.59a3da",
+    "type": "change",
+    "z": "abc9a25c.68fe1",
+    "name": "Extract Temperature",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload.d.Temperature",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 560,
+    "y": 83,
+    "wires": [
+      [
+        "b8f10af2.d74f5",
+        "35083dda.9f462a"
+      ]
+    ]
+  },
+  {
+    "id": "b8f10af2.d74f5",
+    "type": "ui_chart",
+    "z": "abc9a25c.68fe1",
+    "name": "",
+    "group": "85508088.911148",
+    "order": 0,
+    "width": 0,
+    "height": 0,
+    "label": "Temperature",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "HH:mm:ss",
+    "interpolate": "linear",
+    "nodata": "",
+    "dot": false,
+    "ymin": "",
+    "ymax": "",
+    "removeOlder": "10",
+    "removeOlderPoints": "",
+    "removeOlderUnit": "60",
+    "cutout": 0,
+    "useOneColor": false,
+    "colors": [
+      "#1f77b4",
+      "#aec7e8",
+      "#ff7f0e",
+      "#2ca02c",
+      "#98df8a",
+      "#d62728",
+      "#ff9896",
+      "#9467bd",
+      "#c5b0d5"
+    ],
+    "outputs": 2,
+    "x": 790,
+    "y": 83,
+    "wires": [
+      [],
+      []
+    ]
+  },
+  {
+    "id": "e10147c0.8d239",
+    "type": "change",
+    "z": "abc9a25c.68fe1",
+    "name": "Extract Accelerometer X",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload.d.X",
+        "tot": "msg"
+      },
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "X",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 570,
+    "y": 143,
+    "wires": [
+      [
+        "a697d307.89f3",
+        "35083dda.9f462a"
+      ]
+    ]
+  },
+  {
+    "id": "ae8b1f24.03f8f8",
+    "type": "change",
+    "z": "abc9a25c.68fe1",
+    "name": "Extract Accelerometer Y",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload.d.Y",
+        "tot": "msg"
+      },
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "Y",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 570,
+    "y": 183,
+    "wires": [
+      [
+        "a697d307.89f3",
+        "35083dda.9f462a"
+      ]
+    ]
+  },
+  {
+    "id": "ed2a43fd.a2834",
+    "type": "change",
+    "z": "abc9a25c.68fe1",
+    "name": "Extract Accelerometer Z",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload.d.Z",
+        "tot": "msg"
+      },
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "Z",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 570,
+    "y": 223,
+    "wires": [
+      [
+        "a697d307.89f3",
+        "35083dda.9f462a"
+      ]
+    ]
+  },
+  {
+    "id": "91ab0b52.2ab678",
+    "type": "switch",
+    "z": "abc9a25c.68fe1",
+    "name": "SensorTile Event Types",
+    "property": "eventType",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "Temperature",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "Accelerometer",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "Mic_Level",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "Gesture",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "Gyroscope",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 5,
+    "x": 297,
+    "y": 111,
+    "wires": [
+      [
+        "2be595b3.59a3da"
+      ],
+      [
+        "e10147c0.8d239",
+        "ae8b1f24.03f8f8",
+        "ed2a43fd.a2834"
+      ],
+      [
+        "a1dfd2cf.1a2668"
+      ],
+      [
+        "97bd76af.b5aff8"
+      ],
+      [
+        "1724c609.3ac472"
+      ]
+    ]
+  },
+  {
+    "id": "a697d307.89f3",
+    "type": "ui_chart",
+    "z": "abc9a25c.68fe1",
+    "name": "",
+    "group": "85508088.911148",
+    "order": 0,
+    "width": 0,
+    "height": 0,
+    "label": "Accelerometer",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "HH:mm:ss",
+    "interpolate": "linear",
+    "nodata": "",
+    "dot": false,
+    "ymin": "",
+    "ymax": "",
+    "removeOlder": "10",
+    "removeOlderPoints": "",
+    "removeOlderUnit": "60",
+    "cutout": 0,
+    "useOneColor": false,
+    "colors": [
+      "#1f77b4",
+      "#aec7e8",
+      "#ff7f0e",
+      "#2ca02c",
+      "#98df8a",
+      "#d62728",
+      "#ff9896",
+      "#9467bd",
+      "#c5b0d5"
+    ],
+    "useOldStyle": true,
+    "outputs": 1,
+    "x": 942,
+    "y": 136,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "a1dfd2cf.1a2668",
+    "type": "change",
+    "z": "abc9a25c.68fe1",
+    "name": "Extract Microphone level",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload.d.Mic",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 570,
+    "y": 283,
+    "wires": [
+      [
+        "782983a7.fb9e14",
+        "35083dda.9f462a"
+      ]
+    ]
+  },
+  {
+    "id": "782983a7.fb9e14",
+    "type": "ui_chart",
+    "z": "abc9a25c.68fe1",
+    "name": "",
+    "group": "85508088.911148",
+    "order": 0,
+    "width": 0,
+    "height": 0,
+    "label": "Microphone",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "HH:mm:ss",
+    "interpolate": "linear",
+    "nodata": "",
+    "dot": false,
+    "ymin": "",
+    "ymax": "",
+    "removeOlder": "10",
+    "removeOlderPoints": "",
+    "removeOlderUnit": "60",
+    "cutout": 0,
+    "useOneColor": false,
+    "colors": [
+      "#1f77b4",
+      "#aec7e8",
+      "#ff7f0e",
+      "#2ca02c",
+      "#98df8a",
+      "#d62728",
+      "#ff9896",
+      "#9467bd",
+      "#c5b0d5"
+    ],
+    "useOldStyle": true,
+    "outputs": 1,
+    "x": 790,
+    "y": 283,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "33717a11.4516ee",
+    "type": "comment",
+    "z": "abc9a25c.68fe1",
+    "name": "WIoTP via API keys",
+    "info": "Registered Device",
+    "x": 116,
+    "y": 52,
+    "wires": []
+  },
+  {
+    "id": "c650b55b.79d33",
+    "type": "debug",
+    "z": "abc9a25c.68fe1",
+    "name": "Devicedump",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 229,
+    "y": 401,
+    "wires": []
+  },
+  {
+    "id": "97bd76af.b5aff8",
+    "type": "change",
+    "z": "abc9a25c.68fe1",
+    "name": "Extract Gestures",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload.d.Gesture",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 550,
+    "y": 383,
+    "wires": [
+      [
+        "5588ff87.5c8078",
+        "15e1db3a.cc505d"
+      ]
+    ]
+  },
+  {
+    "id": "5588ff87.5c8078",
+    "type": "debug",
+    "z": "abc9a25c.68fe1",
+    "name": "",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 790,
+    "y": 423,
+    "wires": []
+  },
+  {
+    "id": "15e1db3a.cc505d",
+    "type": "ui_chart",
+    "z": "abc9a25c.68fe1",
+    "name": "",
+    "group": "85508088.911148",
+    "order": 0,
+    "width": 0,
+    "height": 0,
+    "label": "Gesture",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "HH:mm:ss",
+    "interpolate": "linear",
+    "nodata": "",
+    "dot": false,
+    "ymin": "",
+    "ymax": "",
+    "removeOlder": 1,
+    "removeOlderPoints": "",
+    "removeOlderUnit": "3600",
+    "cutout": 0,
+    "useOneColor": false,
+    "colors": [
+      "#1f77b4",
+      "#aec7e8",
+      "#ff7f0e",
+      "#2ca02c",
+      "#98df8a",
+      "#d62728",
+      "#ff9896",
+      "#9467bd",
+      "#c5b0d5"
+    ],
+    "outputs": 2,
+    "x": 780,
+    "y": 383,
+    "wires": [
+      [],
+      []
+    ]
+  },
+  {
+    "id": "ac39349d.cf346",
+    "type": "delay",
+    "z": "abc9a25c.68fe1",
+    "name": "",
+    "pauseType": "rate",
+    "timeout": "5",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": true,
+    "x": 116,
+    "y": 293,
+    "wires": [
+      [
+        "c650b55b.79d33"
+      ]
+    ]
+  },
+  {
+    "id": "35083dda.9f462a",
+    "type": "debug",
+    "z": "abc9a25c.68fe1",
+    "name": "",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 853.5,
+    "y": 197,
+    "wires": [],
+    "l": false
+  },
+  {
+    "id": "1724c609.3ac472",
+    "type": "change",
+    "z": "abc9a25c.68fe1",
+    "name": "Extract Gyroscope",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload.d",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 555,
+    "y": 332,
+    "wires": [
+      [
+        "110d88ef.a1953f"
+      ]
+    ]
+  },
+  {
+    "id": "110d88ef.a1953f",
+    "type": "debug",
+    "z": "abc9a25c.68fe1",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 755,
+    "y": 333,
+    "wires": [],
+    "l": false
+  },
+  {
+    "id": "9ce7b5f5.74fd",
+    "type": "ibmiot in",
+    "z": "abc9a25c.68fe1",
+    "authentication": "apiKey",
+    "apiKey": "574dea7a.a2a9a4",
+    "inputType": "evt",
+    "logicalInterface": "",
+    "ruleId": "",
+    "deviceId": "AM1V310_313D48",
+    "applicationId": "",
+    "deviceType": "+",
+    "eventType": "+",
+    "commandType": "",
+    "format": "json",
+    "name": "IBM IoT App In",
+    "service": "registered",
+    "allDevices": false,
+    "allApplications": false,
+    "allDeviceTypes": true,
+    "allLogicalInterfaces": false,
+    "allEvents": true,
+    "allCommands": false,
+    "allFormats": false,
+    "qos": "0",
+    "x": 85,
+    "y": 175,
+    "wires": [
+      [
+        "ac39349d.cf346",
+        "91ab0b52.2ab678"
+      ]
+    ]
+  },
+  {
+    "id": "85508088.911148",
+    "type": "ui_group",
+    "z": "",
+    "name": "SensorTile Data",
+    "tab": "faa564e9.dd9e38",
+    "disp": true,
+    "width": "6"
+  },
+  {
+    "id": "574dea7a.a2a9a4",
+    "type": "ibmiot",
+    "z": "",
+    "name": "SensortileD48",
+    "keepalive": "60",
+    "serverName": "",
+    "cleansession": true,
+    "appId": "",
+    "shared": false
+  },
+  {
+    "id": "faa564e9.dd9e38",
+    "type": "ui_tab",
+    "z": "",
+    "name": "Sensor Tiles",
+    "icon": "dashboard",
+    "order": 2
+  }
+]

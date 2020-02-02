@@ -1,0 +1,306 @@
+[
+  {
+    "id": "b5223390.c9806",
+    "type": "tab",
+    "label": "Kick Kix 2.0",
+    "disabled": false,
+    "info": "Kicx Kicks"
+  },
+  {
+    "id": "f45eb408.c933b8",
+    "type": "comment",
+    "z": "b5223390.c9806",
+    "name": "Device Simulator",
+    "info": "Sends simulated device sensor data to IBM Watson IoT Plaform.\n\nCan be configured to send on click or on an automatic interval.\n\n\n#Prerequisite\nOutput node device type and device ID need to match a device that it registered in a running IBM Watson IoT Platform service.\n\n# Watson IoT Platform docs\n[Connecting devices](https://www.bluemix.net/docs/services/IoT/iotplatform_task.html)",
+    "x": 100,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "bf646e74.727eb",
+    "type": "debug",
+    "z": "b5223390.c9806",
+    "name": "Kicks",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload.kick",
+    "targetType": "msg",
+    "x": 708.0000610351562,
+    "y": 696.0000610351562,
+    "wires": []
+  },
+  {
+    "id": "c6549134.524ee",
+    "type": "comment",
+    "z": "b5223390.c9806",
+    "name": "Gyro Y Axis",
+    "info": "",
+    "x": 94.00004577636719,
+    "y": 622.0000324249268,
+    "wires": []
+  },
+  {
+    "id": "4000f3f0.7c63ec",
+    "type": "function",
+    "z": "b5223390.c9806",
+    "name": "Analyze",
+    "func": "var state = global.get( \"statecount\")||0;\n// sprint++;\nglobal.set('statecount', state);\n\n\nvar battery = msg.payload.d.Level\nvar gyro = msg.payload.d.Y ////get the accel value sent by the node BEFORE 'Def sprint'\nvar kick = msg.payload.kick;//get the sprint value you added to payload in 'Def sprint'\nvar sprint = msg.payload.sprint;//get the sprint value you added to payload in 'Def sprint'\nif (gyro < -800) {\n   kick++;\n   global.set('kcount', kick);\n}\nelse if (gyro > 350) {\n   sprint++;\n   global.set('scount', sprint);\n}\n\nif ((kick >= 15) || (sprint>= 250)) {\n    state = 1;\n}\nelse {\n    state = 0;\n}\n    \n\nsprintmi = sprint/1000;\n//update payload.sprint for the next node!\nmsg.payload.battery = battery\nmsg.payload.state = state; \nmsg.payload.sprint = sprintmi;\nmsg.payload.kick = kick;//update payload.sprint for the next node!\nreturn msg;//return msg with all the original stuff + the updated sprint value",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 392.00002670288086,
+    "y": 767.0000343322754,
+    "wires": [
+      [
+        "aeb87f2.68fd7",
+        "bf646e74.727eb",
+        "78d9b001.6f4468",
+        "551cf8f4.18cb6",
+        "856f00f6.47a3d8",
+        "e0868f9c.a60718",
+        "4ed31917.4386e8"
+      ]
+    ]
+  },
+  {
+    "id": "11b98791.13fd1",
+    "type": "function",
+    "z": "b5223390.c9806",
+    "name": "Def Sprint",
+    "func": "var sprint = global.get( \"scount\")||0;\n// sprint++;\nglobal.set('scount', sprint);\nmsg.payload.sprint = sprint; //<<just add a property to msg instead of returning a new one!\nreturn msg;//return the original msg that was passed in - it will still have stuff from previous node!",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 176.00005340576172,
+    "y": 716.0000743865967,
+    "wires": [
+      [
+        "3036a0c0.f35e98"
+      ]
+    ]
+  },
+  {
+    "id": "3036a0c0.f35e98",
+    "type": "function",
+    "z": "b5223390.c9806",
+    "name": "Def Kick",
+    "func": "var kick = global.get( \"kcount\")||0;\n// sprint++;\nglobal.set('kcount', kick);\nmsg.payload.kick = kick; //<<just add a property to msg instead of returning a new one!\nreturn msg;//return the original msg that was passed in - it will still have stuff from previous node!",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 320.0000457763672,
+    "y": 716.0001449584961,
+    "wires": [
+      [
+        "4000f3f0.7c63ec"
+      ]
+    ]
+  },
+  {
+    "id": "aeb87f2.68fd7",
+    "type": "debug",
+    "z": "b5223390.c9806",
+    "name": "Sprints",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload.sprint",
+    "targetType": "msg",
+    "x": 714.0000610351562,
+    "y": 769.0000610351562,
+    "wires": []
+  },
+  {
+    "id": "78d9b001.6f4468",
+    "type": "rbe",
+    "z": "b5223390.c9806",
+    "name": "Gate",
+    "func": "deadbandEq",
+    "gap": "1",
+    "start": "",
+    "inout": "out",
+    "property": "payload.state",
+    "x": 511.7144470214844,
+    "y": 873.857177734375,
+    "wires": [
+      [
+        "2314994.64895e6"
+      ]
+    ]
+  },
+  {
+    "id": "492a738d.90cc14",
+    "type": "e-mail",
+    "z": "b5223390.c9806",
+    "server": "smtp.gmail.com",
+    "port": "465",
+    "secure": true,
+    "tls": true,
+    "name": "anshul@apatil.com",
+    "dname": "",
+    "x": 773.7144546508789,
+    "y": 980.2859191894531,
+    "wires": []
+  },
+  {
+    "id": "2314994.64895e6",
+    "type": "function",
+    "z": "b5223390.c9806",
+    "name": "EMail",
+    "func": "msg = {\n    payload : \"Remove Player Now\",\n    topic : \"KICX ALERT\",\n};\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 688.7144546508789,
+    "y": 939.2859153747559,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "551cf8f4.18cb6",
+    "type": "ui_text",
+    "z": "b5223390.c9806",
+    "group": "89834bdb.911988",
+    "order": 0,
+    "width": "0",
+    "height": "0",
+    "name": "Kicks DashBoard",
+    "label": "Kicks",
+    "format": "{{msg.payload.kick}}",
+    "layout": "row-spread",
+    "x": 675.71435546875,
+    "y": 374.42889404296875,
+    "wires": []
+  },
+  {
+    "id": "856f00f6.47a3d8",
+    "type": "ui_gauge",
+    "z": "b5223390.c9806",
+    "name": "Kick Gauge",
+    "group": "89834bdb.911988",
+    "order": 2,
+    "width": 0,
+    "height": 0,
+    "gtype": "gage",
+    "title": "Kicks Gauge",
+    "label": "Kicks",
+    "format": "{{msg.payload.kick}}",
+    "min": 0,
+    "max": "15",
+    "colors": [
+      "#5209ac",
+      "#bf26a5",
+      "#f98c09"
+    ],
+    "seg1": "",
+    "seg2": "",
+    "x": 677.7142944335938,
+    "y": 439.4285888671875,
+    "wires": []
+  },
+  {
+    "id": "e0868f9c.a60718",
+    "type": "ui_gauge",
+    "z": "b5223390.c9806",
+    "name": "Sprint Gauge",
+    "group": "89834bdb.911988",
+    "order": 2,
+    "width": 0,
+    "height": 0,
+    "gtype": "donut",
+    "title": "Distance Sprinted",
+    "label": "miles",
+    "format": "{{msg.payload.sprint}}",
+    "min": 0,
+    "max": ".500",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "",
+    "seg2": "",
+    "x": 705.0000610351562,
+    "y": 507.14288330078125,
+    "wires": []
+  },
+  {
+    "id": "4ed31917.4386e8",
+    "type": "ui_text",
+    "z": "b5223390.c9806",
+    "group": "89834bdb.911988",
+    "order": 3,
+    "width": 0,
+    "height": 0,
+    "name": "Sprint Dash Board",
+    "label": "Sprint",
+    "format": "{{msg.payload.sprint}}",
+    "layout": "row-spread",
+    "x": 743.7142944335938,
+    "y": 581.5714721679688,
+    "wires": []
+  },
+  {
+    "id": "e7532ec.c00db5",
+    "type": "ibmiot in",
+    "z": "b5223390.c9806",
+    "authentication": "apiKey",
+    "apiKey": "574dea7a.a2a9a4",
+    "inputType": "evt",
+    "logicalInterface": "",
+    "ruleId": "",
+    "deviceId": "AM1V310_313D48",
+    "applicationId": "",
+    "deviceType": "+",
+    "eventType": "+",
+    "commandType": "",
+    "format": "json",
+    "name": "IBM IoT App In",
+    "service": "registered",
+    "allDevices": false,
+    "allApplications": false,
+    "allDeviceTypes": true,
+    "allLogicalInterfaces": false,
+    "allEvents": true,
+    "allCommands": false,
+    "allFormats": false,
+    "qos": "0",
+    "x": 95,
+    "y": 858,
+    "wires": [
+      [
+        "11b98791.13fd1"
+      ]
+    ]
+  },
+  {
+    "id": "89834bdb.911988",
+    "type": "ui_group",
+    "z": "",
+    "name": "Statistics",
+    "tab": "51b0db08.a5427c",
+    "disp": true,
+    "width": "6",
+    "collapse": true
+  },
+  {
+    "id": "574dea7a.a2a9a4",
+    "type": "ibmiot",
+    "z": "",
+    "name": "SensortileD48",
+    "keepalive": "60",
+    "serverName": "",
+    "cleansession": true,
+    "appId": "",
+    "shared": false
+  },
+  {
+    "id": "51b0db08.a5427c",
+    "type": "ui_tab",
+    "z": "",
+    "name": "Kicks",
+    "icon": "Kicks ",
+    "disabled": false,
+    "hidden": false
+  }
+]
