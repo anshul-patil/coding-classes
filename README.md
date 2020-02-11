@@ -7,3 +7,4 @@ Code from my various coding classes
 4. Game Development class - Fall 2017
 5. Cosmos: Coding with Sensor Tile (Kicx Kicks) - Summer 2019 
 6. Science Fair: Wearable device to Basketball - Fall 2019
+7. High School Sophomore Year AP Computer Science - 2019/2020
